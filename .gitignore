@@ -1,0 +1,13 @@
+# Aiken compilation artifacts
+artifacts/
+# Aiken's project working directory
+onchain/build/
+# Aiken's default documentation export
+docs/
+offchain/node_modules
+offchain/seed_*.txt
+offchain/seed.txt
+offchain/mnemonic.txt
+offchain/payee_*.txt
+.DS_Store
+yarn-error.log
