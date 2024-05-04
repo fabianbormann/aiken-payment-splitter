@@ -1,55 +1,49 @@
-# hello-world
+# Aiken Payment Splitter
 
-Write validators in the `validators` folder, and supporting functions in the `lib` folder using `.ak` as a file extension.
+A simple payment splitter validator written in Aiken and its off-chain counterpart. The Aiken code is in the `onchain` directory and the off-chain code is in the `offchain` directory.
 
-For example, as `validators/always_true.ak`
+## On-chain
 
-```gleam
-validator {
-  fn spend(_datum: Data, _redeemer: Data, _context: Data) -> Bool {
-    True
-  }
-}
-```
+### Prerequirements
 
-## Building
+- [Aiken](https://aiken-lang.org/installation-instructions#from-aikup-linux--macos-only)
 
-```sh
+### Test and build
+
+```bash
+cd onchain
+aiken test
 aiken build
 ```
 
-## Testing
+## Off-chain
 
-You can write tests in any module using the `test` keyword. For example:
+### Prerequirements
 
-```gleam
-test foo() {
-  1 + 1 == 2
-}
+- Node >= 16
+- Yarn
+
+### Prepare a list of wallets
+
+```bash
+cd offchain
+yarn install
+node use-payment-splitter.js prepare 5
 ```
 
-To run all tests, simply do:
+### Top up the wallets
 
-```sh
-aiken check
+Copy the address from the output of the previous command and send some test Ada on the preprod network to this address.
+If you don't have test Ada at all, you can get some from the [Cardano Testnets Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet/).
+
+### Send 10 tAda to the payment splitter
+
+```bash
+node use-payment-splitter.js lock 10000000
 ```
 
-To run only tests matching the string `foo`, do:
+### Trigger a payout
 
-```sh
-aiken check -m foo
+```bash
+node use-payment-splitter.js unlock
 ```
-
-## Documentation
-
-If you're writing a library, you might want to generate an HTML documentation for it.
-
-Use:
-
-```sh
-aiken docs
-```
-
-## Resources
-
-Find more on the [Aiken's user manual](https://aiken-lang.org).
